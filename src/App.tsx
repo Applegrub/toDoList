@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import AddToDo from "./Components/AddToDo";
 import ToDoList from "./Components/ToDoList";
 
-const toDos = require('./defaultData.json');
-
 const Root = styled.div`
 background: #282731;
 width:100vw;
@@ -21,7 +19,7 @@ const App: React.FunctionComponent = () =>
     <Root>
         <Wrapper>
             <AddToDo/>
-            <ToDoList toDos={toDos}/>
+            <ToDoList/>
         </Wrapper>
     </Root>
 
