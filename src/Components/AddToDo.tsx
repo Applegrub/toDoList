@@ -7,23 +7,28 @@ padding: 30px 40px;
 color: white;
 justify-content: center;
 text-align: center;
-input{
+`
+
+const Input = styled.input`
 width: 600px;
 height: 30px;
-border-radius: 100px;}
-button{
-height 40px;
+border-radius: 100px;
+`
+
+const Button = styled.button`
+height: 40px;
 background: #3B3A43;
 border-radius: 100px;
-}
 `
+
 function AddToDo() {
-    return(
+    return (
         <Wrapper>
             <h1>Список дел</h1>
-            <input type="text" placeholder="Введите новое дело..." id="toDoEl"/>
-            <button type="submit">Добавить</button>
+            <Input type="text" placeholder="Введите новое дело..."/>
+            <Button type="submit">Добавить</Button>
         </Wrapper>
     )
 }
+
 export default AddToDo;

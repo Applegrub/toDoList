@@ -2,6 +2,9 @@ import React from 'react';
 import styled from "@emotion/styled";
 import AddToDo from "./Components/AddToDo";
 import ToDoList from "./Components/ToDoList";
+
+const toDos = require('./defaultData.json');
+
 const Root = styled.div`
 background: #282731;
 width:100vw;
@@ -14,19 +17,12 @@ background: #4F4E56;
 `
 
 
-function App() {
-
-    let toDos = [
-        { id: 1, completed: false, title: 'Некая задача'}
-    ]
-  return (
-   <Root>
-       <Wrapper>
-           <AddToDo/>
-           <ToDoList toDos={toDos}/>
-       </Wrapper>
-   </Root>
-  );
-}
+const App: React.FunctionComponent = () =>
+    <Root>
+        <Wrapper>
+            <AddToDo/>
+            <ToDoList toDos={toDos}/>
+        </Wrapper>
+    </Root>
 
 export default App;
