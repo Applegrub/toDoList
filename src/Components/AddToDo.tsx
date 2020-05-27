@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from "react"
+import React from "react";
 import styled from "@emotion/styled";
 import {TodoStore} from "../stores";
 import {inject, observer} from "mobx-react";
