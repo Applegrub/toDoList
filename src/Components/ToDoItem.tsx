@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import {TTodoItem} from "../stores/TodoStore"
-import {TodoStore} from "../stores";
+import {NotificationStore, TodoStore} from "../stores";
 import {inject, observer} from "mobx-react";
 import {css, jsx} from "@emotion/core";
 import ModalWindow from "./ModalWindow";
@@ -10,6 +10,7 @@ import ModalWindow from "./ModalWindow";
 interface IProps {
     toDo: TTodoItem
     todoStore?: TodoStore
+    notificationStore?: NotificationStore
 }
 
 
@@ -45,18 +46,18 @@ border-radius: 100px;
 height: 30px;
 `
 
-@inject('todoStore')
+@inject('todoStore', 'notificationStore')
 @observer
 export default class ToDoItem extends React.Component<IProps> {
-    state = {
-        isOpened: false
+
+    handleOpenChangeDialog = () => {
+        this.props.notificationStore!.isOpenEditPage = true
     }
+
     render() {
         const isCompleted = this.props.toDo.completed;
         const id = this.props.toDo.id;
-        const {isOpened} = this.state;
         return <Root>
-                    <ModalWindow />
                     <Item css={css`text-decoration: ${isCompleted ? 'line-through' : 'none'};`}>
                           <Input type="checkbox"
                                  onChange={()=> this.props.todoStore!.handlerToDo(id)}/>
@@ -65,8 +66,7 @@ export default class ToDoItem extends React.Component<IProps> {
                               onClick={()=> this.props.todoStore!.deleteToDo(id)}>
                               Удалить
                           </DeleteButton>
-                        <ChangeButton onClick={()=>
-                            this.props.todoStore!.changeToDo(id)}>
+                        <ChangeButton onClick={this.handleOpenChangeDialog}>
                             Изменить
                         </ChangeButton>
                       </Item>
