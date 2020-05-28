@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
-import { TTodoItem } from "../stores/ToDoStore"
+import { TToDoItem } from "../stores/ToDoStore"
 import { NotificationStore, ToDoStore } from "../stores";
 import { inject, observer } from "mobx-react";
 import { css, jsx } from "@emotion/core";
 
 interface IProps {
-    toDo: TTodoItem
+    toDo: TToDoItem
     toDoStore?: ToDoStore
     notificationStore?: NotificationStore
 }
@@ -50,7 +50,7 @@ height: 30px;
 export default class ToDoItem extends React.Component<IProps> {
 
     handleOpenChangeDialog = () => {
-        this.props.notificationStore!.isOpenEditPage = true
+        this.props.notificationStore!.HandlerEditPage()
         this.props.notificationStore!.titleOfToDo = this.props.toDo.title
     }
 

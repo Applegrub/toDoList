@@ -70,9 +70,6 @@ export default class ModalWindow extends React.Component<IProps, IState> {
         title: ''
     }
 
-    handleClose = () => {
-        this.props.notificationStore!.isOpenEditPage = false
-    }
 
     handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) =>
         this.setState({ title: e.target.value });
@@ -96,7 +93,7 @@ export default class ModalWindow extends React.Component<IProps, IState> {
                     placeholder={this.props.notificationStore!.titleOfToDo} />
                 <ButtonSet>
                     <Button onClick={this.handleAdd}>Добавить изменения</Button>
-                    <Button onClick={this.handleClose}>Закрыть</Button>
+                    <Button onClick={this.props.notificationStore!.HandlerEditPage}>Закрыть</Button>
                 </ButtonSet>
             </Modal>
         </Root>

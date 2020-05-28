@@ -1,8 +1,7 @@
-import { SubStore, RootStore, NotificationStore } from "./index";
+import { SubStore, RootStore} from "./index";
 import { action, observable } from "mobx";
-import { inject } from "mobx-react";
 
-const initData: TTodoItem[] = [
+const initData: TToDoItem[] = [
   {
     id: 0,
     completed: false,
@@ -10,14 +9,14 @@ const initData: TTodoItem[] = [
   },
 ];
 
-export type TTodoItem = {
+export type TToDoItem = {
   id: number;
   completed: boolean;
   title: string;
 };
 
 export default class ToDoStore extends SubStore {
-  @observable toDos: TTodoItem[] = [];
+  @observable toDos: TToDoItem[] = [];
 
   @action addTodo = (title: string) =>
     this.toDos.push({
