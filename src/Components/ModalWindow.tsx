@@ -1,12 +1,14 @@
-/** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
 import {inject, observer} from "mobx-react";
-import {css, jsx} from "@emotion/core";
-import {NotificationStore} from "../stores";
+import {NotificationStore, TodoStore} from "../stores";
 
 interface IProps {
-    notificationStore?: NotificationStore
+    notificationStore?: NotificationStore;
+    toDoStore?: TodoStore
+}
+interface IState {
+    title:string
 }
 
 const Root = styled.div`
@@ -47,30 +49,54 @@ border-radius: 100px;
 `
 const Button = styled.button`
 font-size: 1em;
-margin: 30px 0 0 200px;
 height: 40px;
 background: #3B3A43;
 border-radius: 100px;
 outline: none;
 color: white;
 `
+const ButtonSet = styled.div`
+margin: 30px 0 0 250px;
+width: 300px;
+display: flex;
+justify-content: space-between;
+`
 
-@inject('notificationStore')
+@inject('notificationStore', 'toDoStore')
 @observer
-export default class ModalWindow extends React.Component<IProps> {
+export default class ModalWindow extends React.Component<IProps, IState> {
+
+    state = {
+        title: ''
+    }
 
     handleClose = () => {
         this.props.notificationStore!.isOpenEditPage = false
     }
 
+    handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+        this.setState({title: e.target.value});
+
+
+    handleAdd = () => {
+        const oldTitle:string = this.props.notificationStore!.titleOfToDo
+        const newTitle:string =this.state.title
+        this.props.toDoStore!.changeToDo(newTitle, oldTitle)}
+
     render() {
+        const oldTitle = this.state.title
         return <Root>
             <Modal>
                 <H1>Custom&Homemade</H1>
                 <H2>Меняй что хочешь</H2>
-                <Input/>
-                <Button>Добавить изменения</Button>
-                <Button onClick={this.handleClose}>Close</Button>
+                <Input
+                    value = {oldTitle}
+                    onChange={this.handleChangeInput}
+                    placeholder = {this.props.notificationStore!.titleOfToDo}/>
+                <ButtonSet>
+                    <Button onClick={this.handleAdd}>Добавить изменения</Button>
+                    <Button onClick={this.handleClose}>Закрыть</Button>
+                </ButtonSet>
             </Modal>
         </Root>
     }

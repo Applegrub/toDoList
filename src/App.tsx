@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import AddToDo from "./Components/AddToDo";
 import ToDoList from "./Components/ToDoList";
 import {inject, observer} from "mobx-react";
-import {NotificationStore} from "./stores";
+import {NotificationStore, TodoStore} from "./stores";
 import ModalWindow from "./Components/ModalWindow";
 
 const Root = styled.div`
@@ -20,6 +20,7 @@ position: relative;
 
 interface IProps {
     notificationStore?: NotificationStore
+    toDoStore?: TodoStore
 }
 
 @inject('notificationStore')

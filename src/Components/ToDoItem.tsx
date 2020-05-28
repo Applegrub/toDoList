@@ -5,7 +5,6 @@ import {TTodoItem} from "../stores/TodoStore"
 import {NotificationStore, TodoStore} from "../stores";
 import {inject, observer} from "mobx-react";
 import {css, jsx} from "@emotion/core";
-import ModalWindow from "./ModalWindow";
 
 interface IProps {
     toDo: TTodoItem
@@ -52,6 +51,7 @@ export default class ToDoItem extends React.Component<IProps> {
 
     handleOpenChangeDialog = () => {
         this.props.notificationStore!.isOpenEditPage = true
+        this.props.notificationStore!.titleOfToDo = this.props.toDo.title
     }
 
     render() {

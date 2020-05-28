@@ -1,5 +1,7 @@
-import {SubStore, RootStore} from "./index";
+import {SubStore, RootStore, NotificationStore} from "./index";
 import {action, observable} from "mobx";
+import {inject} from "mobx-react";
+
 
 const initData: TTodoItem[] = [
     {
@@ -33,15 +35,13 @@ export default class TodoStore extends SubStore {
         this.toDos[id].completed = !this.toDos[id].completed;
         console.log(this.toDos[id].completed)
     }
-    @action changeToDo = (id: number) =>{
-        const newToDo = prompt('Изменить задачу', this.toDos[id].title)
-        return  this.toDos.map(toDo =>{
-            if (toDo.id === id) {
-                if (newToDo != null) {
-                    toDo.title = newToDo;
-                }
-            }
-        })
+    @action changeToDo = (newTitle: string, oldToDo: string) =>{
+     const newToDo= this.toDos.map((toDo) =>{
+          if (toDo.title === oldToDo ) {
+             toDo.title = newTitle
+          }
+      })
+        return newToDo;
     }
     constructor(rootStore: RootStore) {
         super(rootStore);
