@@ -1,12 +1,8 @@
-import {SubStore, RootStore, TodoStore} from "./index";
-import {action, observable} from "mobx";
-
+import { SubStore, RootStore, ToDoStore } from "./index";
+import { action, observable } from "mobx";
 
 export default class NotificationStore extends SubStore {
+  @observable isOpenEditPage = false;
 
-    @observable isOpenEditPage = false;
-
-    @observable titleOfToDo = '';
-
-
+  @observable titleOfToDo = "";
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import ToDoItem from "./ToDoItem";
 import styled from "@emotion/styled";
-import {TodoStore} from "../stores";
-import {inject, observer} from "mobx-react";
+import { ToDoStore } from "../stores";
+import { inject, observer } from "mobx-react";
 
 export interface IProps {
-    todoStore?: TodoStore
+    toDoStore?: ToDoStore
 }
 
 const Root = styled.div`
@@ -19,14 +19,14 @@ const Root = styled.div`
   
 `
 
-@inject('todoStore')
+@inject('toDoStore')
 @observer
 class ToDoList extends React.Component<IProps> {
 
     render() {
-        const {toDos} = this.props.todoStore!;
+        const { toDos } = this.props.toDoStore!;
         return <Root>{
-            toDos.map((toDo, i) => <ToDoItem toDo={toDo} key={i}/>)
+            toDos.map((toDo, i) => <ToDoItem toDo={toDo} key={i} />)
         }</Root>
     }
 

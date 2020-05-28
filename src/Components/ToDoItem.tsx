@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
-import {TTodoItem} from "../stores/TodoStore"
-import {NotificationStore, TodoStore} from "../stores";
-import {inject, observer} from "mobx-react";
-import {css, jsx} from "@emotion/core";
+import { TTodoItem } from "../stores/ToDoStore"
+import { NotificationStore, ToDoStore } from "../stores";
+import { inject, observer } from "mobx-react";
+import { css, jsx } from "@emotion/core";
 
 interface IProps {
     toDo: TTodoItem
-    todoStore?: TodoStore
+    toDoStore?: ToDoStore
     notificationStore?: NotificationStore
 }
 
@@ -45,7 +45,7 @@ border-radius: 100px;
 height: 30px;
 `
 
-@inject('todoStore', 'notificationStore')
+@inject('toDoStore', 'notificationStore')
 @observer
 export default class ToDoItem extends React.Component<IProps> {
 
@@ -58,18 +58,18 @@ export default class ToDoItem extends React.Component<IProps> {
         const isCompleted = this.props.toDo.completed;
         const id = this.props.toDo.id;
         return <Root>
-                    <Item css={css`text-decoration: ${isCompleted ? 'line-through' : 'none'};`}>
-                          <Input type="checkbox"
-                                 onChange={()=> this.props.todoStore!.handlerToDo(id)}/>
-                          {this.props.toDo.title}
-                          <DeleteButton
-                              onClick={()=> this.props.todoStore!.deleteToDo(id)}>
-                              Удалить
+            <Item css={css`text-decoration: ${isCompleted ? 'line-through' : 'none'};`}>
+                <Input type="checkbox"
+                    onChange={() => this.props.toDoStore!.handlerToDo(id)} />
+                {this.props.toDo.title}
+                <DeleteButton
+                    onClick={() => this.props.toDoStore!.deleteToDo(id)}>
+                    Удалить
                           </DeleteButton>
-                        <ChangeButton onClick={this.handleOpenChangeDialog}>
-                            Изменить
+                <ChangeButton onClick={this.handleOpenChangeDialog}>
+                    Изменить
                         </ChangeButton>
-                      </Item>
-              </Root>
+            </Item>
+        </Root>
     }
 }

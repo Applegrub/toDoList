@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import {inject, observer} from "mobx-react";
-import {NotificationStore, TodoStore} from "../stores";
+import { inject, observer } from "mobx-react";
+import { NotificationStore, ToDoStore } from "../stores";
 
 interface IProps {
     notificationStore?: NotificationStore;
-    toDoStore?: TodoStore
+    toDoStore?: ToDoStore
 }
 interface IState {
-    title:string
+    title: string
 }
 
 const Root = styled.div`
@@ -75,13 +75,14 @@ export default class ModalWindow extends React.Component<IProps, IState> {
     }
 
     handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) =>
-        this.setState({title: e.target.value});
+        this.setState({ title: e.target.value });
 
 
     handleAdd = () => {
-        const oldTitle:string = this.props.notificationStore!.titleOfToDo
-        const newTitle:string =this.state.title
-        this.props.toDoStore!.changeToDo(newTitle, oldTitle)}
+        const oldTitle: string = this.props.notificationStore!.titleOfToDo
+        const newTitle: string = this.state.title
+        this.props.toDoStore!.changeToDo(newTitle, oldTitle)
+    }
 
     render() {
         const oldTitle = this.state.title
@@ -90,9 +91,9 @@ export default class ModalWindow extends React.Component<IProps, IState> {
                 <H1>Custom&Homemade</H1>
                 <H2>Меняй что хочешь</H2>
                 <Input
-                    value = {oldTitle}
+                    value={oldTitle}
                     onChange={this.handleChangeInput}
-                    placeholder = {this.props.notificationStore!.titleOfToDo}/>
+                    placeholder={this.props.notificationStore!.titleOfToDo} />
                 <ButtonSet>
                     <Button onClick={this.handleAdd}>Добавить изменения</Button>
                     <Button onClick={this.handleClose}>Закрыть</Button>

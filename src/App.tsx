@@ -2,8 +2,8 @@ import React from 'react';
 import styled from "@emotion/styled";
 import AddToDo from "./Components/AddToDo";
 import ToDoList from "./Components/ToDoList";
-import {inject, observer} from "mobx-react";
-import {NotificationStore, TodoStore} from "./stores";
+import { inject, observer } from "mobx-react";
+import { NotificationStore, ToDoStore } from "./stores";
 import ModalWindow from "./Components/ModalWindow";
 
 const Root = styled.div`
@@ -20,7 +20,7 @@ position: relative;
 
 interface IProps {
     notificationStore?: NotificationStore
-    toDoStore?: TodoStore
+    toDoStore?: ToDoStore
 }
 
 @inject('notificationStore')
@@ -29,10 +29,10 @@ export default class App extends React.Component<IProps> {
     render() {
         return <Root>
             <Wrapper>
-                <AddToDo/>
-                <ToDoList/>
+                <AddToDo />
+                <ToDoList />
             </Wrapper>
-            {this.props.notificationStore!.isOpenEditPage && <ModalWindow/>}
+            {this.props.notificationStore!.isOpenEditPage && <ModalWindow />}
         </Root>
 
     }

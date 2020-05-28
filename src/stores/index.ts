@@ -1,11 +1,6 @@
 import RootStore from "./RootStore";
 import SubStore from "./SubStore";
-import TodoStore from "./TodoStore";
+import ToDoStore from "./ToDoStore";
 import NotificationStore from "./NotificationStore";
 
-export {
-    RootStore,
-    SubStore,
-    TodoStore,
-    NotificationStore
-}
+export { RootStore, SubStore, ToDoStore, NotificationStore };

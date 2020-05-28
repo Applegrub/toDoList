@@ -1,12 +1,11 @@
-import {NotificationStore, TodoStore} from "./index";
+import { NotificationStore, ToDoStore } from "./index";
 
 export default class RootStore {
+  public toDoStore: ToDoStore;
+  public notificationStore: NotificationStore;
 
-    public todoStore: TodoStore;
-    public notificationStore: NotificationStore;
-
-    constructor() {
-        this.todoStore = new TodoStore(this)
-        this.notificationStore = new NotificationStore(this)
-    }
+  constructor() {
+    this.toDoStore = new ToDoStore(this);
+    this.notificationStore = new NotificationStore(this);
+  }
 }

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
-import {TodoStore} from "../stores";
-import {inject, observer} from "mobx-react";
-import {css, jsx} from "@emotion/core";
+import { ToDoStore } from "../stores";
+import { inject, observer } from "mobx-react";
+import { css, jsx } from "@emotion/core";
 
 const Wrapper = styled.div`
 background: #212029;
@@ -28,7 +28,7 @@ color: white;
 `
 
 export interface IProps {
-    todoStore?: TodoStore
+    toDoStore?: ToDoStore
 }
 
 interface IState {
@@ -36,7 +36,7 @@ interface IState {
     isValid: boolean
 }
 
-@inject('todoStore')
+@inject('toDoStore')
 @observer
 class AddToDo extends React.Component<IProps, IState> {
 
@@ -47,19 +47,19 @@ class AddToDo extends React.Component<IProps, IState> {
 
     handleAdd = () => {
         if (this.state.title !== '') {
-            this.props.todoStore!.addTodo(this.state.title);
-            this.setState({title: '', isValid: true})
+            this.props.toDoStore!.addTodo(this.state.title);
+            this.setState({ title: '', isValid: true })
         } else {
-            this.setState({isValid: false})
+            this.setState({ isValid: false })
         }
     }
 
 
     handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) =>
-        this.setState({title: e.target.value, isValid: e.target.value !== ''});
+        this.setState({ title: e.target.value, isValid: e.target.value !== '' });
 
     render() {
-        const {isValid, title} = this.state
+        const { isValid, title } = this.state
         return <Wrapper>
             <h1>Список дел</h1>
             <Input
