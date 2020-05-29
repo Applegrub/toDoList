@@ -1,47 +1,41 @@
-import { SubStore, RootStore} from "./index";
-import { action, observable } from "mobx";
-
-const initData: TToDoItem[] = [
-  {
-    id: 0,
-    completed: false,
-    title: "Некая задача",
-  },
-];
+import {RootStore, SubStore} from "./index";
+import {action, observable} from "mobx";
 
 export type TToDoItem = {
-  id: number;
-  completed: boolean;
-  title: string;
+    id: number;
+    completed: boolean;
+    title: string;
 };
 
 export default class ToDoStore extends SubStore {
-  @observable toDos: TToDoItem[] = [];
+    @observable toDos: TToDoItem[] = [];
 
-  @action addTodo = (title: string) =>
-    this.toDos.push({
-      id: this.toDos.length,
-      title,
-      completed: false,
-    });
+    @action addTodo = (title: string) =>{
+        this.toDos.push({
+            id: this.toDos.length,
+            title,
+            completed: false,
+        });
+}
+    @action deleteToDo = (id: number) => {
+        this.toDos = this.toDos.filter((toDo) => toDo.id !== id);
+    };
+    @action handlerToDo = (id: number) => {
+        this.toDos[id].completed = !this.toDos[id].completed;
+        console.log(this.toDos[id].completed);
+    };
+    @action changeToDo = (newTitle: string, oldToDo: string) => {
+        return this.toDos.map((toDo) => {
+            if (toDo.title === oldToDo) {
+                toDo.title = newTitle;
+            }
+        });
+    };
 
-  @action deleteToDo = (id: number) => {
-    this.toDos = this.toDos.filter((toDo) => toDo.id !== id);
-  };
-  @action handlerToDo = (id: number) => {
-    this.toDos[id].completed = !this.toDos[id].completed;
-    console.log(this.toDos[id].completed);
-  };
-  @action changeToDo = (newTitle: string, oldToDo: string) => {
-    const newToDo = this.toDos.map((toDo) => {
-      if (toDo.title === oldToDo) {
-        toDo.title = newTitle;
-      }
-    });
-    return newToDo;
-  };
-  constructor(rootStore: RootStore) {
-    super(rootStore);
-    this.toDos = initData;
-  }
+    constructor(rootStore: RootStore, initState: any) {
+        super(rootStore);
+        if (initState && initState.toDos && Array.isArray(initState.toDos)) {
+            this.toDos = initState.toDos;
+        }
+    }
 }

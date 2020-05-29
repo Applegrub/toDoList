@@ -1,11 +1,15 @@
-import { NotificationStore, ToDoStore } from "./index";
+import {NotificationStore, ToDoStore} from "./index";
 
 export default class RootStore {
-  public toDoStore: ToDoStore;
-  public notificationStore: NotificationStore;
+    public toDoStore: ToDoStore;
+    public notificationStore: NotificationStore;
 
-  constructor() {
-    this.toDoStore = new ToDoStore(this);
-    this.notificationStore = new NotificationStore(this);
-  }
+    constructor(initState: any) {
+        this.toDoStore = new ToDoStore(this, initState && initState.toDoStore);
+        this.notificationStore = new NotificationStore(this);
+    }
+
+    public serialize = () => ({
+        toDoStore: {toDos: this.toDoStore.toDos}
+    })
 }

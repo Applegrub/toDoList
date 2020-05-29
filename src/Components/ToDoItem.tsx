@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
-import { TToDoItem } from "../stores/ToDoStore"
-import { NotificationStore, ToDoStore } from "../stores";
-import { inject, observer } from "mobx-react";
-import { css, jsx } from "@emotion/core";
+import {NotificationStore, ToDoStore} from "../stores";
+import {inject, observer} from "mobx-react";
+import {css, jsx} from "@emotion/core";
+import {TToDoItem} from "../stores/ToDoStore";
 
 interface IProps {
     toDo: TToDoItem
@@ -54,21 +54,17 @@ export default class ToDoItem extends React.Component<IProps> {
         this.props.notificationStore!.titleOfToDo = this.props.toDo.title
     }
 
+    handleCheck = () => this.props.toDoStore!.handlerToDo(this.props.toDo.id)
+    handleDelete = () => this.props.toDoStore!.deleteToDo(this.props.toDo.id)
+
     render() {
-        const isCompleted = this.props.toDo.completed;
-        const id = this.props.toDo.id;
+        const {completed} = this.props.toDo;
         return <Root>
-            <Item css={css`text-decoration: ${isCompleted ? 'line-through' : 'none'};`}>
-                <Input type="checkbox"
-                    onChange={() => this.props.toDoStore!.handlerToDo(id)} />
+            <Item css={css`text-decoration: ${completed ? 'line-through' : 'none'};`}>
+                <Input type="checkbox" checked={completed} onChange={this.handleCheck}/>
                 {this.props.toDo.title}
-                <DeleteButton
-                    onClick={() => this.props.toDoStore!.deleteToDo(id)}>
-                    Удалить
-                          </DeleteButton>
-                <ChangeButton onClick={this.handleOpenChangeDialog}>
-                    Изменить
-                        </ChangeButton>
+                <DeleteButton onClick={this.handleDelete}>Удалить</DeleteButton>
+                <ChangeButton onClick={this.handleOpenChangeDialog}>Изменить</ChangeButton>
             </Item>
         </Root>
     }
